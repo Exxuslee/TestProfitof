@@ -1,0 +1,4 @@
+rootProject.name = "TestProfitof"
+include ':app'
+include ':data'
+include ':domain'
