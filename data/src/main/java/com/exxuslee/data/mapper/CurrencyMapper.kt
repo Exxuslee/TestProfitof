@@ -1,16 +1,16 @@
 package com.exxuslee.data.mapper
 
-import com.exxuslee.data.local.entities.CurrencyEntity
-import com.exxuslee.data.remote.response.CurrencyResponse
+import com.exxuslee.data.local.entities.IDEntity
+import com.exxuslee.data.remote.response.ListResponse
 import com.exxuslee.domain.models.Symbols
 
 
-class CurrencyMapper : BaseMapper<Symbols, List<CurrencyEntity>, CurrencyResponse> {
+class CurrencyMapper : BaseMapper<Symbols, List<IDEntity>, ListResponse> {
 
-    override fun domainToLocal(type: Symbols): List<CurrencyEntity> {
-        val asd: ArrayList<CurrencyEntity> = arrayListOf()
+    override fun domainToLocal(type: Symbols): List<IDEntity> {
+        val asd: ArrayList<IDEntity> = arrayListOf()
         type.symbol.map { Symbol ->
-            asd.add(CurrencyEntity(
+            asd.add(IDEntity(
                 xxx = Symbol.xxx,
                 name = Symbol.name,
                 base = Symbol.base,
@@ -20,7 +20,7 @@ class CurrencyMapper : BaseMapper<Symbols, List<CurrencyEntity>, CurrencyRespons
         return asd
     }
 
-    override fun localToDomain(type: List<CurrencyEntity>): Symbols {
+    override fun localToDomain(type: List<IDEntity>): Symbols {
         val asd: ArrayList<Symbols.Symbol> = arrayListOf()
         type.map { CurrencyEntity ->
             asd.add(Symbols.Symbol(
@@ -33,10 +33,10 @@ class CurrencyMapper : BaseMapper<Symbols, List<CurrencyEntity>, CurrencyRespons
         return Symbols(asd)
     }
 
-    override fun remoteToLocal(type: CurrencyResponse): List<CurrencyEntity> {
-        val asd: ArrayList<CurrencyEntity> = ArrayList()
+    override fun remoteToLocal(type: ListResponse): List<IDEntity> {
+        val asd: ArrayList<IDEntity> = ArrayList()
         type.symbols.map { (xxx, name) ->
-            asd.add(CurrencyEntity(
+            asd.add(IDEntity(
                 xxx = xxx,
                 name = name,
                 base = xxx == "EUR",
@@ -46,7 +46,7 @@ class CurrencyMapper : BaseMapper<Symbols, List<CurrencyEntity>, CurrencyRespons
         return asd
     }
 
-    override fun remoteToDomain(type: CurrencyResponse): Symbols {
+    override fun remoteToDomain(type: ListResponse): Symbols {
         val asd: ArrayList<Symbols.Symbol> = arrayListOf()
         type.symbols.map {
             asd.add(Symbols.Symbol(

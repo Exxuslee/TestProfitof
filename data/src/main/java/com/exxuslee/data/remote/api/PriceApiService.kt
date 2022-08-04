@@ -1,19 +1,15 @@
 package com.exxuslee.data.remote.api
 
-import com.exxuslee.data.remote.response.CurrencyResponse
-import com.exxuslee.data.remote.response.PriceResponse
+import com.exxuslee.data.remote.response.IDResponse
+import com.exxuslee.data.remote.response.ListResponse
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface PriceApiService {
-    @Headers("apikey: h56SAJavNkHTN4ocFsQui3Jx6bwJxt33")
-    @GET("fixer/latest")
-    suspend fun getPrice(
-        @Query("symbols") symbols: String,
-        @Query("base") base: String,
-    ): Response<PriceResponse>
+    @GET("post/{id}")
+    suspend fun getID(@Path("id") id: Int): Response<IDResponse>
 
-    @Headers("apikey: h56SAJavNkHTN4ocFsQui3Jx6bwJxt33")
-    @GET("fixer/symbols")
-    suspend fun getCurrency(): Response<CurrencyResponse>
+    @GET("hot")
+    suspend fun getHot(): Response<ListResponse>
 }

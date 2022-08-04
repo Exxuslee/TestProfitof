@@ -1,19 +1,19 @@
 package com.exxuslee.data.mapper
 
 import com.exxuslee.data.local.entities.PriceEntity
-import com.exxuslee.data.remote.response.PriceResponse
+import com.exxuslee.data.remote.response.IDResponse
 import com.exxuslee.domain.models.Price
 
 
-class PriceMapper : BaseMapper<Price, PriceEntity, PriceResponse> {
+class PriceMapper : BaseMapper<Price, PriceEntity, IDResponse> {
 
-    override fun remoteToLocal(type: PriceResponse) = PriceEntity(
+    override fun remoteToLocal(type: IDResponse) = PriceEntity(
         base = type.base,
         rates = type.rates,
         date = type.date
     )
 
-    override fun remoteToDomain(type: PriceResponse) = Price(
+    override fun remoteToDomain(type: IDResponse) = Price(
         type.base,
         type.date,
         type.rates

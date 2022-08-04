@@ -7,5 +7,5 @@ package com.exxuslee.domain.models
 
 data class ID(
     val type: String,
-    val payload: String,
+    val content: String,
 )
