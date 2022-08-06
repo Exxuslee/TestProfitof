@@ -7,5 +7,5 @@ import org.koin.dsl.module
 
 
 val repositoryModule = module {
-    factory<IDRepository> { IDRepositoryImpl(get(), get(), get()) }
+    factory<IDRepository> { IDRepositoryImpl(get(), get()) }
 }

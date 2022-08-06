@@ -1,6 +1,6 @@
 package com.exxuslee.data.di
 
-import com.exxuslee.data.remote.api.PriceApiService
+import com.exxuslee.data.remote.api.ApiService
 import com.exxuslee.data.utils.Constants.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -11,12 +11,12 @@ import java.util.concurrent.TimeUnit
 
 val networkingModule = module {
 
-    single<PriceApiService> {
+    single<ApiService> {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(get())
             .addConverterFactory(GsonConverterFactory.create())
-            .build().create(PriceApiService::class.java)
+            .build().create(ApiService::class.java)
     }
 
     single<OkHttpClient> {

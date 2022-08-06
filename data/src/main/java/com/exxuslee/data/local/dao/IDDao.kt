@@ -3,20 +3,17 @@ package com.exxuslee.data.local.dao
 import androidx.room.*
 import com.exxuslee.data.local.entities.IDEntity
 
-/**
- * Created by Exxus Lee on 22/07/2020.
- */
-
 @Dao
 interface IDDao {
 
-    @Query("UPDATE currency_table SET base = :base, `check` = :check WHERE xxx = :xxx")
-    fun updateCurrency(xxx: String, base: Boolean, check: Boolean)
+    @Query("UPDATE id_table SET type = :type, content = :content WHERE xxx = :xxx")
+    fun setID(xxx: Int, type: String, content: String)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCurrency(currency: IDEntity)
+    suspend fun insertID(idEntity: IDEntity)
 
-    @Query("SELECT * FROM id_table")
-    suspend fun getList(): List<IDEntity>?
+    @Query("SELECT * FROM id_table WHERE xxx = :xxx")
+    fun selectID(xxx: Int): IDEntity?
+
 
 }

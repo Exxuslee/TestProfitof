@@ -7,15 +7,5 @@ package com.exxuslee.data.remote.response
 
 data class IDResponse(
     val type: String = "",
-    val payload: Payload,
+    val payload: String = "",
 )
-
-sealed class Payload {
-    data class Text(
-        val text: String,
-    ) : Payload()
-
-    data class Url(
-        val url: String,
-    ) : Payload()
-}

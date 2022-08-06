@@ -1,13 +1,11 @@
 package com.exxuslee.data.mapper
 
-interface BaseMapper<D, L, R> {
-
-    fun domainToLocal(type: D): L
-
-    fun localToDomain(type: L): D
-
-    fun remoteToLocal(type: R): L
+interface BaseMapper<D, R> {
 
     fun remoteToDomain(type: R): D
 
+    interface TripleMapper<D, L, R> : BaseMapper<D, R> {
+        fun localToDomain(type: L): D
+        fun remoteToLocal(type: R, xxx:Int): L
+    }
 }
