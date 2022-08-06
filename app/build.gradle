@@ -7,6 +7,7 @@ plugins {
 }
 
 android {
+    namespace 'com.exxuslee.testprofitof'
     compileSdk 32
 
     defaultConfig {
@@ -50,7 +51,7 @@ android {
         exclude 'META-INF/AL2.0'
         exclude 'META-INF/LGPL2.1'
     }
-    namespace 'com.exxuslee.testprofitof'
+
 }
 
 dependencies {

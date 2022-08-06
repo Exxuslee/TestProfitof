@@ -8,6 +8,7 @@ plugins {
 
 android {
     compileSdk 32
+    namespace 'com.exxuslee.data'
 
     defaultConfig {
         minSdk 22
