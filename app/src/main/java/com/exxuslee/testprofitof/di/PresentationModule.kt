@@ -1,7 +1,7 @@
 package com.exxuslee.testprofitof.di
 
-import com.exxuslee.testprofitof.ui.favorite.SecondFragmentViewModel
-import com.exxuslee.testprofitof.ui.price.FistFragmentViewModel
+import com.exxuslee.testprofitof.ui.SecondFragmentViewModel
+import com.exxuslee.testprofitof.ui.FistFragmentViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
