@@ -11,7 +11,7 @@ import com.exxuslee.testprofitof.R
 
 
 class FirstAdapter :
-    ListAdapter<Int, FirstAdapter.FirstHolder>(RatesDiffCallback()) {
+    ListAdapter<Int, FirstAdapter.FirstHolder>(ListDiffCallback()) {
 
     var onPriceClickListener: ((Int) -> Unit)? = null
 
