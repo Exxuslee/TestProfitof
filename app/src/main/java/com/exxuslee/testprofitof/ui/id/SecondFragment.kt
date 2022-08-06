@@ -1,4 +1,4 @@
-package com.exxuslee.testprofitof.ui
+package com.exxuslee.testprofitof.ui.id
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
