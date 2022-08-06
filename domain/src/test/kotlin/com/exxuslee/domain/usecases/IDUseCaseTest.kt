@@ -17,7 +17,6 @@ class PriceUseCaseTest {
     @Mock
     private lateinit var idRepository: IDRepository
     private lateinit var getIDs: GetIDUseCase.Base
-    private val getFromRemote: Boolean = false
 
 
     @Before
@@ -28,8 +27,8 @@ class PriceUseCaseTest {
     @Test
     fun getIDUseCase_calls_IDRepository() {
         runTest {
-            getIDs.listIDs(getFromRemote)
-            Mockito.verify(idRepository).listIDs(getFromRemote)
+            getIDs.listIDs()
+            Mockito.verify(idRepository).listIDs()
         }
     }
 }

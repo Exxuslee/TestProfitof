@@ -1,11 +1,12 @@
 package com.exxuslee.data.mapper
 
-import com.exxuslee.data.remote.response.ListResponse
 import com.exxuslee.domain.models.IDs
 
 
-class ListMapper : BaseMapper<IDs, ListResponse> {
+class ListMapper : BaseMapper<IDs, List<Int>> {
 
-    override fun remoteToDomain(type: ListResponse) = IDs(type.list)
+    override fun remoteToDomain(type: List<Int>): IDs {
+        return IDs(list = arrayListOf(1,2,3))
+    }
 
 }
