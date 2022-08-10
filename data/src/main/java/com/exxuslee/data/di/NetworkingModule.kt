@@ -20,7 +20,6 @@ val networkingModule = module {
     }
 
     single<OkHttpClient> {
-
         val logger = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
@@ -30,7 +29,6 @@ val networkingModule = module {
             .writeTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .build()
-
         httpClient
     }
 }

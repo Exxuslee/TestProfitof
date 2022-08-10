@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.exxuslee.domain.models.ID
 import com.exxuslee.domain.usecases.GetIDUseCase
 import com.exxuslee.domain.utils.Result
 import com.exxuslee.testprofitof.R
@@ -16,6 +17,9 @@ import kotlinx.coroutines.withContext
 class IViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
     private val _ids = MutableLiveData<IntArray?>()
     val ids = _ids.asLiveData()
+
+    private val _id = MutableLiveData<ID?>()
+    val xxx = _id.asLiveData()
 
     private val _selectedID = MutableLiveData(0)
     val selectedID = _selectedID.asLiveData()
@@ -61,8 +65,11 @@ class IViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
             if (cur >= _ids.value?.size!!) cur = 0
             if (cur < 0) cur = _ids.value?.size!! - 1
             _selectedID.postValue(cur)
+            localID(_ids.value!![cur])
+            Log.d(TAG, _id.value.toString())
         }
         Log.d(TAG, _selectedID.value.toString())
+
 
         if (direction) when (currentFragment) {
             R.id.FirstFragment -> {
@@ -86,6 +93,49 @@ class IViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
             }
         }
 
+    }
+
+    private fun remoteID(xxx: Int) {
+        _isLoading.postValue(true)
+        viewModelScope.launch {
+            when (val result =
+                withContext(Dispatchers.IO) { getIDUseCase.getID(true, xxx) }) {
+                is Result.Success -> {
+                    _isLoading.postValue(false)
+                    if (result.data != null) {
+                        _dataFetchState.postValue(true)
+                        _id.postValue(result.data)
+                    } else {
+                        _dataFetchState.postValue(false)
+                    }
+                }
+
+                is Result.Error -> {
+                    _isLoading.postValue(false)
+                    _dataFetchState.postValue(false)
+                }
+                else -> {}
+            }
+        }
+    }
+
+    private fun localID(xxx: Int) {
+        _isLoading.postValue(true)
+        viewModelScope.launch {
+            when (val result =
+                withContext(Dispatchers.IO) { getIDUseCase.getID(false, xxx) }) {
+                is Result.Success -> {
+                    _isLoading.postValue(false)
+                    if (result.data != null) {
+                        _dataFetchState.postValue(true)
+                        _id.postValue(result.data)
+                    } else {
+                        remoteID(xxx)
+                    }
+                }
+                else -> {}
+            }
+        }
     }
 
     companion object {
