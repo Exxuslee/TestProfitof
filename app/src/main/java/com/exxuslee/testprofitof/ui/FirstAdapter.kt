@@ -14,7 +14,7 @@ class FirstAdapter :
     ListAdapter<Int, FirstAdapter.FirstHolder>(FirstDiffCallback()) {
 
     var onIDClickListener: ((Int) -> Unit)? = null
-    private var selectedPosition = 0
+    private var selectedPosition = -1
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FirstHolder {

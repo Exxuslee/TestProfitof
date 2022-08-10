@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.exxuslee.testprofitof.databinding.FragmentFirstBinding
+import com.exxuslee.testprofitof.utils.showIf
 import com.google.android.material.snackbar.Snackbar
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class FirstFragment : Fragment() {
 
-    private val viewModel: FragmentViewModel by viewModel()
+    private val viewModel by sharedViewModel<IViewModel>()
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
     private lateinit var firstAdapter: FirstAdapter
@@ -21,14 +22,13 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        viewModel.remoteList()
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.remoteList()
         firstAdapter = FirstAdapter()
         binding.recyclerView.adapter = firstAdapter
 
@@ -45,10 +45,10 @@ class FirstFragment : Fragment() {
             firstAdapter.updateAdapter(list)
         }
 
-//        binding.buttonFirst.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//        }
-        viewModel.selectID(START)
+        viewModel.isLoading.observe(viewLifecycleOwner) { state ->
+            binding.progressBar.showIf { state }
+        }
+
         firstAdapter.onIDClickListener = {
             Log.d(TAG, "position $it")
             viewModel.selectID(it)
@@ -62,6 +62,5 @@ class FirstFragment : Fragment() {
 
     companion object {
         const val TAG = "testProfit"
-        const val START = 0
     }
 }

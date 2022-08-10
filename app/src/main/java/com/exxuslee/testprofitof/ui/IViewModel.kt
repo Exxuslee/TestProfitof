@@ -1,5 +1,6 @@
 package com.exxuslee.testprofitof.ui
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,11 +13,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class FragmentViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
+class IViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
     private val _ids = MutableLiveData<IntArray?>()
     val ids = _ids.asLiveData()
 
-    private val _selectedID = MutableLiveData<Int?>()
+    private val _selectedID = MutableLiveData(0)
     val selectedID = _selectedID.asLiveData()
 
     private val _isLoading = MutableLiveData<Boolean>()
@@ -54,6 +55,15 @@ class FragmentViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel
     }
 
     fun navigate(navController: NavController, currentFragment: Int?, direction: Boolean) {
+        var cur = _selectedID.value
+        if (cur != null) {
+            if (direction) cur += 1 else cur -= 1
+            if (cur >= _ids.value?.size!!) cur = 0
+            if (cur < 0) cur = _ids.value?.size!! - 1
+            _selectedID.postValue(cur)
+        }
+        Log.d(TAG, _selectedID.value.toString())
+
         if (direction) when (currentFragment) {
             R.id.FirstFragment -> {
                 navController.navigate(R.id.action_FirstFragment_to_SecondFragment)
@@ -76,5 +86,9 @@ class FragmentViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel
             }
         }
 
+    }
+
+    companion object {
+        const val TAG = "testProfit"
     }
 }
