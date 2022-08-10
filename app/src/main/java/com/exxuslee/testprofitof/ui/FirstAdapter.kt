@@ -1,5 +1,6 @@
-package com.exxuslee.testprofitof.ui.list
+package com.exxuslee.testprofitof.ui
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,9 @@ import com.exxuslee.testprofitof.R
 class FirstAdapter :
     ListAdapter<Int, FirstAdapter.FirstHolder>(FirstDiffCallback()) {
 
-    var onPriceClickListener: ((Int) -> Unit)? = null
+    var onIDClickListener: ((Int) -> Unit)? = null
+    private var selectedPosition = 0
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FirstHolder {
         val view =
@@ -20,10 +23,14 @@ class FirstAdapter :
         return FirstHolder(view)
     }
 
-    override fun onBindViewHolder(viewHolder: FirstHolder, position: Int) {
-        viewHolder.name.text = getItem(position).toString()
-        viewHolder.itemView.setOnClickListener {
-            onPriceClickListener?.invoke(position)
+    override fun onBindViewHolder(holder: FirstHolder, position: Int) {
+        holder.name.text = getItem(position).toString()
+        holder.itemView.setBackgroundColor(if (selectedPosition == position) Color.LTGRAY else Color.TRANSPARENT)
+        holder.itemView.setOnClickListener {
+            notifyItemChanged(selectedPosition)
+            selectedPosition = holder.adapterPosition
+            notifyItemChanged(position)
+            onIDClickListener?.invoke(position)
         }
     }
 

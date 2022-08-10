@@ -1,6 +1,7 @@
-package com.exxuslee.testprofitof.ui.list
+package com.exxuslee.testprofitof.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FirstFragment : Fragment() {
 
-    private val viewModelFirst: FistFragmentViewModel by viewModel()
+    private val viewModel: FragmentViewModel by viewModel()
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
     private lateinit var firstAdapter: FirstAdapter
@@ -19,8 +20,8 @@ class FirstFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        viewModelFirst.remoteList()
+    ): View {
+        viewModel.remoteList()
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -31,7 +32,7 @@ class FirstFragment : Fragment() {
         firstAdapter = FirstAdapter()
         binding.recyclerView.adapter = firstAdapter
 
-        viewModelFirst.dataFetchState.observe(viewLifecycleOwner) { state ->
+        viewModel.dataFetchState.observe(viewLifecycleOwner) { state ->
             if (!state) {
                 binding.errorText.visibility = View.VISIBLE
                 Snackbar.make(requireView(),
@@ -40,17 +41,27 @@ class FirstFragment : Fragment() {
             }
         }
 
-        viewModelFirst.ids.observe(viewLifecycleOwner) { list ->
+        viewModel.ids.observe(viewLifecycleOwner) { list ->
             firstAdapter.updateAdapter(list)
         }
 
 //        binding.buttonFirst.setOnClickListener {
 //            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
 //        }
+        viewModel.selectID(START)
+        firstAdapter.onIDClickListener = {
+            Log.d(TAG, "position $it")
+            viewModel.selectID(it)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val TAG = "testProfit"
+        const val START = 0
     }
 }

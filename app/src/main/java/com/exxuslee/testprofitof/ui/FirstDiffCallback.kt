@@ -1,4 +1,4 @@
-package com.exxuslee.testprofitof.ui.list
+package com.exxuslee.testprofitof.ui
 
 import androidx.recyclerview.widget.DiffUtil
 

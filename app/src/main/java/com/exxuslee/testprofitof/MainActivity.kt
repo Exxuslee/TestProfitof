@@ -9,13 +9,15 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.exxuslee.testprofitof.databinding.ActivityMainBinding
-import com.google.android.material.snackbar.Snackbar
+import com.exxuslee.testprofitof.ui.FragmentViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private val viewModel: FragmentViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -30,10 +32,14 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAnchorView(R.id.fab)
-                .setAction("Action", null).show()
+        binding.fabNext.setOnClickListener { view ->
+            val currentFragment = navController.currentDestination?.id
+            viewModel.navigate(navController, currentFragment, true)
+        }
+
+        binding.fabLast.setOnClickListener { view ->
+            val currentFragment = navController.currentDestination?.id
+            viewModel.navigate(navController, currentFragment, false)
         }
     }
 
