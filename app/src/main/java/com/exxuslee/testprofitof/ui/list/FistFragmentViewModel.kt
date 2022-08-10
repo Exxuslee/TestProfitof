@@ -3,7 +3,6 @@ package com.exxuslee.testprofitof.ui.list
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.exxuslee.domain.models.IDs
 import com.exxuslee.domain.usecases.GetIDUseCase
 import com.exxuslee.domain.utils.Result
 import com.exxuslee.testprofitof.utils.asLiveData
@@ -12,7 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class FistFragmentViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
-    private val _ids = MutableLiveData<IDs?>()
+    private val _ids = MutableLiveData<IntArray?>()
     val ids = _ids.asLiveData()
 
     private val _isLoading = MutableLiveData<Boolean>()

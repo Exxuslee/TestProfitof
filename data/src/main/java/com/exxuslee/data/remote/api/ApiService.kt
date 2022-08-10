@@ -10,5 +10,5 @@ interface ApiService {
     suspend fun getID(@Path("id") id: Int): Response<IDResponse>
 
     @GET("hot")
-    suspend fun getHot(): Response<ArrayList<Int>>
+    suspend fun getHot(): Response<IntArray>
 }

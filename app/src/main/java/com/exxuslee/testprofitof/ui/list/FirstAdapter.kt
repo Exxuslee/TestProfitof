@@ -6,12 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.exxuslee.domain.models.IDs
 import com.exxuslee.testprofitof.R
 
 
 class FirstAdapter :
-    ListAdapter<Int, FirstAdapter.FirstHolder>(ListDiffCallback()) {
+    ListAdapter<Int, FirstAdapter.FirstHolder>(FirstDiffCallback()) {
 
     var onPriceClickListener: ((Int) -> Unit)? = null
 
@@ -28,8 +27,8 @@ class FirstAdapter :
         }
     }
 
-    fun updateAdapter(ids: IDs?) {
-        submitList(ids?.list?.toList())
+    fun updateAdapter(ids: IntArray?) {
+        submitList(ids?.toList())
     }
 
     class FirstHolder(view: View) : RecyclerView.ViewHolder(view) {

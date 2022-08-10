@@ -2,7 +2,7 @@ package com.exxuslee.testprofitof.ui.list
 
 import androidx.recyclerview.widget.DiffUtil
 
-class ListDiffCallback : DiffUtil.ItemCallback<Int>() {
+class FirstDiffCallback : DiffUtil.ItemCallback<Int>() {
     override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
         return oldItem == newItem
     }

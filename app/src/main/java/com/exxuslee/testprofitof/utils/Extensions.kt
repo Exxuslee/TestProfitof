@@ -4,9 +4,6 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
-/**
- * Created by Mayokun Adeniyi on 24/07/2020.
- */
 
 /**
  * This function helps to toggle the visibility of a [View]. If the condition

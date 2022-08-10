@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.exxuslee.testprofitof.R
 import com.exxuslee.testprofitof.databinding.FragmentFirstBinding
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,8 +40,8 @@ class FirstFragment : Fragment() {
             }
         }
 
-        viewModelFirst.ids.observe(viewLifecycleOwner) { IDs ->
-            firstAdapter.updateAdapter(IDs)
+        viewModelFirst.ids.observe(viewLifecycleOwner) { list ->
+            firstAdapter.updateAdapter(list)
         }
 
 //        binding.buttonFirst.setOnClickListener {
