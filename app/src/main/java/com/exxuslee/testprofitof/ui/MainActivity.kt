@@ -1,4 +1,4 @@
-package com.exxuslee.testprofitof
+package com.exxuslee.testprofitof.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,8 +8,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.exxuslee.testprofitof.R
 import com.exxuslee.testprofitof.databinding.ActivityMainBinding
-import com.exxuslee.testprofitof.ui.IViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

@@ -67,9 +67,8 @@ class IViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
             _selectedID.postValue(cur)
             localID(_ids.value!![cur])
             Log.d(TAG, _id.value.toString())
-        }
-        Log.d(TAG, _selectedID.value.toString())
 
+        }
 
         if (direction) when (currentFragment) {
             R.id.FirstFragment -> {

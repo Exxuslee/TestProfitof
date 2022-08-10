@@ -1,4 +1,4 @@
-package com.exxuslee.testprofitof.ui
+package com.exxuslee.testprofitof.ui.first
 
 import android.graphics.Color
 import android.view.LayoutInflater
