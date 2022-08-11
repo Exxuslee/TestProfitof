@@ -139,6 +139,9 @@ class MainViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
                 if (id.type == "webpage") navController.navigate(R.id.action_ThirdFragment_to_ThirdFragment,
                     bundle)
             }
+            else -> {
+                throw Exception("Unknown currentFragment")
+            }
         }
     }
 

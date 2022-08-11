@@ -13,7 +13,10 @@
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/SecondFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popUpTo="@id/FirstFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_FirstFragment_to_ThirdFragment"
             app:destination="@id/ThirdFragment" />
@@ -25,16 +28,18 @@
         tools:layout="@layout/fragment_second">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment"
-            app:popUpTo="@id/FirstFragment"
-            app:popUpToInclusive="true" />
-        <action
             android:id="@+id/action_SecondFragment_to_ThirdFragment"
-            app:destination="@id/ThirdFragment"/>
+            app:destination="@id/ThirdFragment"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/FirstFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_SecondFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment"/>
+            app:destination="@id/SecondFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/FirstFragment"
+            app:popUpToInclusive="false" />
         <argument
             android:name="content"
             app:argType="string"
@@ -47,16 +52,17 @@
         tools:layout="@layout/fragment_third">
 
         <action
-            android:id="@+id/action_ThirdFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment"
-            app:popUpTo="@id/FirstFragment"
-            app:popUpToInclusive="true" />
-        <action
             android:id="@+id/action_ThirdFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/SecondFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popUpTo="@id/FirstFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_ThirdFragment_to_ThirdFragment"
-            app:destination="@id/ThirdFragment" />
+            app:destination="@id/ThirdFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/FirstFragment"
+            app:popUpToInclusive="false" />
         <argument
             android:name="content"
             app:argType="string"

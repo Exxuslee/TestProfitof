@@ -29,7 +29,7 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.remoteList()
-        firstAdapter = FirstAdapter()
+        firstAdapter = FirstAdapter(viewModel.selectedID.value ?: 0)
         binding.recyclerView.adapter = firstAdapter
 
         viewModel.dataFetchState.observe(viewLifecycleOwner) { state ->

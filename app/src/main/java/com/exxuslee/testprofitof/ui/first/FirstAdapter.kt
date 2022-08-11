@@ -10,12 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.exxuslee.testprofitof.R
 
 
-class FirstAdapter :
+class FirstAdapter(private var selectedPosition: Int = 0) :
     ListAdapter<Int, FirstAdapter.FirstHolder>(FirstDiffCallback()) {
 
     var onIDClickListener: ((Int) -> Unit)? = null
-    private var selectedPosition = 0
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FirstHolder {
         val view =
