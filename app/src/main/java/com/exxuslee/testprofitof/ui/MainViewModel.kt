@@ -122,16 +122,22 @@ class MainViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
 
         when (currentFragment) {
             R.id.FirstFragment -> {
-                if (id.type == "text") navController.navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
-                if (id.type == "webpage") navController.navigate(R.id.action_FirstFragment_to_ThirdFragment, bundle)
+                if (id.type == "text") navController.navigate(R.id.action_FirstFragment_to_SecondFragment,
+                    bundle)
+                if (id.type == "webpage") navController.navigate(R.id.action_FirstFragment_to_ThirdFragment,
+                    bundle)
             }
             R.id.SecondFragment -> {
-                if (id.type == "text") navController.navigate(R.id.action_SecondFragment_to_SecondFragment, bundle)
-                if (id.type == "webpage") navController.navigate(R.id.action_SecondFragment_to_ThirdFragment, bundle)
+                if (id.type == "text") navController.navigate(R.id.action_SecondFragment_to_SecondFragment,
+                    bundle)
+                if (id.type == "webpage") navController.navigate(R.id.action_SecondFragment_to_ThirdFragment,
+                    bundle)
             }
             R.id.ThirdFragment -> {
-                if (id.type == "text") navController.navigate(R.id.action_ThirdFragment_to_SecondFragment, bundle)
-                if (id.type == "webpage") navController.navigate(R.id.action_ThirdFragment_to_ThirdFragment, bundle)
+                if (id.type == "text") navController.navigate(R.id.action_ThirdFragment_to_SecondFragment,
+                    bundle)
+                if (id.type == "webpage") navController.navigate(R.id.action_ThirdFragment_to_ThirdFragment,
+                    bundle)
             }
         }
     }

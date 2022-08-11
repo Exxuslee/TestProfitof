@@ -46,14 +46,9 @@ class ThirdFragment : Fragment() {
             }
         }
         binding.web.loadUrl(arguments?.getString("content").toString())
-//        viewModel.xxx.observe(viewLifecycleOwner) { ID ->
-//            binding.web.loadUrl(ID?.content ?: "null content")
-//        }
-
         viewModel.isLoading.observe(viewLifecycleOwner) { state ->
             binding.progressBar.showIf { state }
         }
-
     }
 
     override fun onDestroyView() {

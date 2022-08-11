@@ -43,10 +43,6 @@ class SecondFragment : Fragment() {
         }
         binding.textviewSecond.text = arguments?.getString("content")
 
-//        viewModel.xxx.observe(viewLifecycleOwner) { ID ->
-//            binding.textviewSecond.text = ID?.content ?: "null content"
-//        }
-
         viewModel.isLoading.observe(viewLifecycleOwner) { state ->
             binding.progressBar.showIf { state }
         }
