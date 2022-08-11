@@ -6,15 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.exxuslee.domain.models.ID
 import com.exxuslee.testprofitof.databinding.FragmentFirstBinding
-import com.exxuslee.testprofitof.ui.IViewModel
+import com.exxuslee.testprofitof.ui.MainViewModel
 import com.exxuslee.testprofitof.utils.showIf
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class FirstFragment : Fragment() {
 
-    private val viewModel by sharedViewModel<IViewModel>()
+    private val viewModel by sharedViewModel<MainViewModel>()
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
     private lateinit var firstAdapter: FirstAdapter

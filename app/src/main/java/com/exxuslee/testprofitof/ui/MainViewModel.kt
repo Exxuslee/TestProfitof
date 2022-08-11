@@ -1,5 +1,6 @@
 package com.exxuslee.testprofitof.ui
 
+import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +15,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class IViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
+class MainViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
+
     private val _ids = MutableLiveData<IntArray?>()
     val ids = _ids.asLiveData()
 
@@ -58,7 +60,7 @@ class IViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
         _selectedID.postValue(id)
     }
 
-    fun navigate(navController: NavController, currentFragment: Int?, direction: Boolean) {
+    fun pressButton(direction: Boolean) {
         var cur = _selectedID.value
         if (cur != null) {
             if (direction) cur += 1 else cur -= 1
@@ -66,30 +68,7 @@ class IViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
             if (cur < 0) cur = _ids.value?.size!! - 1
             _selectedID.postValue(cur)
             localID(_ids.value!![cur])
-            Log.d(TAG, _id.value.toString())
-
-        }
-
-        if (direction) when (currentFragment) {
-            R.id.FirstFragment -> {
-                navController.navigate(R.id.action_FirstFragment_to_SecondFragment)
-            }
-            R.id.SecondFragment -> {
-                navController.navigate(R.id.action_SecondFragment_to_FirstFragment)
-            }
-            R.id.ThirdFragment -> {
-                navController.navigate(R.id.action_ThirdFragment_to_FirstFragment)
-            }
-        } else when (currentFragment) {
-            R.id.FirstFragment -> {
-                navController.navigate(R.id.action_FirstFragment_to_ThirdFragment)
-            }
-            R.id.SecondFragment -> {
-                navController.navigate(R.id.action_SecondFragment_to_FirstFragment)
-            }
-            R.id.ThirdFragment -> {
-                navController.navigate(R.id.action_ThirdFragment_to_FirstFragment)
-            }
+            Log.d(TAG, "${_ids.value!![cur]} ${_id.value} ${_selectedID.value}")
         }
 
     }
@@ -133,6 +112,26 @@ class IViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
                     }
                 }
                 else -> {}
+            }
+        }
+    }
+
+    fun navigate(id: ID, navController: NavController, currentFragment: Int) {
+        val bundle = Bundle()
+        bundle.putString("content", id.content)
+
+        when (currentFragment) {
+            R.id.FirstFragment -> {
+                if (id.type == "text") navController.navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
+                if (id.type == "webpage") navController.navigate(R.id.action_FirstFragment_to_ThirdFragment, bundle)
+            }
+            R.id.SecondFragment -> {
+                if (id.type == "text") navController.navigate(R.id.action_SecondFragment_to_SecondFragment, bundle)
+                if (id.type == "webpage") navController.navigate(R.id.action_SecondFragment_to_ThirdFragment, bundle)
+            }
+            R.id.ThirdFragment -> {
+                if (id.type == "text") navController.navigate(R.id.action_ThirdFragment_to_SecondFragment, bundle)
+                if (id.type == "webpage") navController.navigate(R.id.action_ThirdFragment_to_ThirdFragment, bundle)
             }
         }
     }

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.exxuslee.testprofitof.databinding.FragmentSecondBinding
-import com.exxuslee.testprofitof.ui.IViewModel
+import com.exxuslee.testprofitof.ui.MainViewModel
 import com.exxuslee.testprofitof.utils.showIf
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -17,7 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class SecondFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
-    private val viewModel by sharedViewModel<IViewModel>()
+    private val viewModel by sharedViewModel<MainViewModel>()
 
     private val binding get() = _binding!!
 
@@ -32,7 +32,6 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.remoteList()
 
         viewModel.dataFetchState.observe(viewLifecycleOwner) { state ->
             if (!state) {
@@ -42,10 +41,11 @@ class SecondFragment : Fragment() {
                     Snackbar.LENGTH_LONG).show()
             }
         }
+        binding.textviewSecond.text = arguments?.getString("content")
 
-        viewModel.xxx.observe(viewLifecycleOwner) { ID ->
-            binding.textviewSecond.text = ID?.content ?: "null content"
-        }
+//        viewModel.xxx.observe(viewLifecycleOwner) { ID ->
+//            binding.textviewSecond.text = ID?.content ?: "null content"
+//        }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { state ->
             binding.progressBar.showIf { state }

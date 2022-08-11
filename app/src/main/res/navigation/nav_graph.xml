@@ -35,6 +35,10 @@
         <action
             android:id="@+id/action_SecondFragment_to_SecondFragment"
             app:destination="@id/SecondFragment"/>
+        <argument
+            android:name="content"
+            app:argType="string"
+            android:defaultValue="content" />
     </fragment>
     <fragment
         android:id="@+id/ThirdFragment"
@@ -53,5 +57,9 @@
         <action
             android:id="@+id/action_ThirdFragment_to_ThirdFragment"
             app:destination="@id/ThirdFragment" />
+        <argument
+            android:name="content"
+            app:argType="string"
+            android:defaultValue="google.com.ua" />
     </fragment>
 </navigation>
