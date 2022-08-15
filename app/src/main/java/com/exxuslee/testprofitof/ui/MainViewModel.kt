@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.exxuslee.domain.models.ID
 import com.exxuslee.domain.usecases.GetIDUseCase
+import com.exxuslee.domain.utils.HandleResult
 import com.exxuslee.domain.utils.Result
 import com.exxuslee.testprofitof.R
 import com.exxuslee.testprofitof.utils.asLiveData
@@ -35,26 +36,24 @@ class MainViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
     fun remoteList() {
         _isLoading.postValue(true)
         viewModelScope.launch {
-            when (val result =
-                withContext(Dispatchers.IO) { getIDUseCase.listIDs() }) {
-                is Result.Success -> {
+            val handleResult = object : HandleResult {
+                override fun handleSuccess(data: IntArray) {
                     _isLoading.postValue(false)
-                    if (result.data != null) {
-                        _dataFetchState.postValue(true)
-                        _ids.postValue(result.data)
-                    } else {
-                        _dataFetchState.postValue(false)
-                    }
+                    _dataFetchState.postValue(true)
+                    _ids.postValue(data)
                 }
 
-                is Result.Error -> {
+                override fun handleError(message: String) {
                     _isLoading.postValue(false)
                     _dataFetchState.postValue(false)
                 }
-                else -> {}
+            }
+            withContext(Dispatchers.IO) {
+                getIDUseCase.listIDs().handle(handleResult)
             }
         }
     }
+
 
     fun selectID(id: Int) {
         _selectedID.postValue(id)
