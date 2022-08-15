@@ -23,30 +23,23 @@ class IDRepositoryImpl(
         } else Result2.Error("Invalid data/failure")
     }
 
-    override suspend fun getID(getFromRemote: Boolean, xxx: Int): Result<ID> {
+    override suspend fun getID(xxx: Int): Result<ID> {
         val mapper = IDMapper()
-        return when {
-            getFromRemote -> {
-                val idResult = apiService.getID(id = xxx)
-                if (idResult.isSuccessful) {
-                    val remoteData = idResult.body()
-                    if (remoteData != null) {
-                        IDDao.insertID(mapper.remoteToLocal(remoteData, xxx))
-                        Result.Success(mapper.remoteToDomain(remoteData))
-                    } else {
-                        Result.Success(null)
-                    }
+        val localData = IDDao.selectID(xxx)
+        return if (localData != null) {
+            Result.Success(mapper.localToDomain(localData))
+        } else {
+            val idResult = apiService.getID(id = xxx)
+            if (idResult.isSuccessful) {
+                val remoteData = idResult.body()
+                if (remoteData != null) {
+                    IDDao.insertID(mapper.remoteToLocal(remoteData, xxx))
+                    Result.Success(mapper.remoteToDomain(remoteData))
                 } else {
-                    Result.Error(Exception("Invalid data/failure"))
-                }
-            }
-            else -> {
-                val localData = IDDao.selectID(xxx)
-                if (localData == null) {
                     Result.Success(null)
-                } else {
-                    Result.Success(mapper.localToDomain(localData))
                 }
+            } else {
+                Result.Error(Exception("Invalid data/failure"))
             }
         }
     }

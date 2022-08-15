@@ -66,17 +66,17 @@ class MainViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
             if (cur >= _ids.value?.size!!) cur = 0
             if (cur < 0) cur = _ids.value?.size!! - 1
             _selectedID.postValue(cur)
-            localID(_ids.value!![cur])
+            loadID(_ids.value!![cur])
             Log.d(TAG, "${_ids.value!![cur]} ${_id.value} ${_selectedID.value}")
         }
 
     }
 
-    private fun remoteID(xxx: Int) {
+    private fun loadID(xxx: Int) {
         _isLoading.postValue(true)
         viewModelScope.launch {
             when (val result =
-                withContext(Dispatchers.IO) { getIDUseCase.getID(true, xxx) }) {
+                withContext(Dispatchers.IO) { getIDUseCase.getID(xxx) }) {
                 is Result.Success -> {
                     _isLoading.postValue(false)
                     if (result.data != null) {
@@ -90,25 +90,6 @@ class MainViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
                 is Result.Error -> {
                     _isLoading.postValue(false)
                     _dataFetchState.postValue(false)
-                }
-                else -> {}
-            }
-        }
-    }
-
-    private fun localID(xxx: Int) {
-        _isLoading.postValue(true)
-        viewModelScope.launch {
-            when (val result =
-                withContext(Dispatchers.IO) { getIDUseCase.getID(false, xxx) }) {
-                is Result.Success -> {
-                    _isLoading.postValue(false)
-                    if (result.data != null) {
-                        _dataFetchState.postValue(true)
-                        _id.postValue(result.data)
-                    } else {
-                        remoteID(xxx)
-                    }
                 }
                 else -> {}
             }

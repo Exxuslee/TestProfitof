@@ -6,5 +6,5 @@ import com.exxuslee.domain.utils.Result2
 
 interface IDRepository {
     suspend fun listIDs(): Result2
-    suspend fun getID(getFromRemote: Boolean, xxx: Int): Result<ID>
+    suspend fun getID(xxx: Int): Result<ID>
 }

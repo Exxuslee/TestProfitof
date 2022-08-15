@@ -7,14 +7,14 @@ import com.exxuslee.domain.utils.Result2
 
 interface GetIDUseCase {
     suspend fun listIDs(): Result2
-    suspend fun getID(getFromRemote: Boolean, xxx: Int): Result<ID>
+    suspend fun getID(xxx: Int): Result<ID>
 
     class Base(private val repository: IDRepository) : GetIDUseCase {
 
         override suspend fun listIDs(): Result2 =
             repository.listIDs()
 
-        override suspend fun getID(getFromRemote: Boolean, xxx: Int): Result<ID> =
-            repository.getID(getFromRemote, xxx)
+        override suspend fun getID(xxx: Int): Result<ID> =
+            repository.getID(xxx)
     }
 }
