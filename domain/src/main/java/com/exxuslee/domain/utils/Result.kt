@@ -1,20 +1,18 @@
 package com.exxuslee.domain.utils
 
-/**
- * A generic class that holds a value with its loading status.
- * @param <T>
- */
 sealed class Result<out R> {
 
-    data class Success<out T>(val data: T?) : Result<T>()
-    data class Error(val exception: Exception) : Result<Nothing>()
-    object Loading : Result<Nothing>()
+    abstract fun<T> handle(handleResult: HandleResult<T>)
 
-    override fun toString(): String {
-        return when (this) {
-            is Success<*> -> "Success[data=$data]"
-            is Error -> "Error[exception=$exception]"
-            is Loading -> "Loading"
+    class Success<out T>(private val value: T) : Result<T>() {
+        override fun <T> handle(handleResult: HandleResult<T>) {
+            handleResult.handleSuccess(value as T)
+        }
+    }
+
+    class Error(private val message: String) : Result<Nothing>() {
+        override fun <T> handle(handleResult: HandleResult<T>) {
+            handleResult.handleError(message)
         }
     }
 }

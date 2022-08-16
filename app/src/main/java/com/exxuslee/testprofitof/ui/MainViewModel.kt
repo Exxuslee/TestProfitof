@@ -9,7 +9,6 @@ import androidx.navigation.NavController
 import com.exxuslee.domain.models.ID
 import com.exxuslee.domain.usecases.GetIDUseCase
 import com.exxuslee.domain.utils.HandleResult
-import com.exxuslee.domain.utils.Result
 import com.exxuslee.testprofitof.R
 import com.exxuslee.testprofitof.utils.asLiveData
 import kotlinx.coroutines.Dispatchers
@@ -41,13 +40,11 @@ class MainViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
                     _isLoading.postValue(false)
                     _dataFetchState.postValue(false)
                 }
-
                 override fun handleSuccess(data: IntArray) {
                     _isLoading.postValue(false)
                     _dataFetchState.postValue(true)
                     _ids.postValue(data)
                 }
-
             }
             withContext(Dispatchers.IO) {
                 getIDUseCase.listIDs().handle(handleResult)
@@ -76,23 +73,19 @@ class MainViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
     private fun loadID(xxx: Int) {
         _isLoading.postValue(true)
         viewModelScope.launch {
-            when (val result =
-                withContext(Dispatchers.IO) { getIDUseCase.getID(xxx) }) {
-                is Result.Success -> {
-                    _isLoading.postValue(false)
-                    if (result.data != null) {
-                        _dataFetchState.postValue(true)
-                        _id.postValue(result.data)
-                    } else {
-                        _dataFetchState.postValue(false)
-                    }
-                }
-
-                is Result.Error -> {
+            val handleResult = object : HandleResult<ID> {
+                override fun handleError(message: String) {
                     _isLoading.postValue(false)
                     _dataFetchState.postValue(false)
                 }
-                else -> {}
+                override fun handleSuccess(data: ID) {
+                    _isLoading.postValue(false)
+                    _dataFetchState.postValue(true)
+                    _id.postValue(data)
+                }
+            }
+            withContext(Dispatchers.IO) {
+                getIDUseCase.getID(xxx).handle(handleResult)
             }
         }
     }
