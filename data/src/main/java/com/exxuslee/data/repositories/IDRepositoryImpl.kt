@@ -13,7 +13,7 @@ class IDRepositoryImpl(
     private val IDDao: IDDao,
 ) : IDRepository {
 
-    override suspend fun listIDs(): Result2 {
+    override suspend fun listIDs(): Result2<IntArray> {
         val priceResult = apiService.getHot()
         return if (priceResult.isSuccessful) {
             val remoteData = priceResult.body()
@@ -26,6 +26,22 @@ class IDRepositoryImpl(
     override suspend fun getID(xxx: Int): Result<ID> {
         val mapper = IDMapper()
         val localData = IDDao.selectID(xxx)
+//        return if (localData != null) {
+//            Result.Success(mapper.localToDomain(localData))
+//        } else {
+//            val idResult = apiService.getID(id = xxx)
+//            if (idResult.isSuccessful) {
+//                val remoteData = idResult.body()
+//                if (remoteData != null) {
+//                    IDDao.insertID(mapper.remoteToLocal(remoteData, xxx))
+//                    Result.Success(mapper.remoteToDomain(remoteData))
+//                } else {
+//                    Result.Success(null)
+//                }
+//            } else {
+//                Result.Error(Exception("Invalid data/failure"))
+//            }
+//        }
         return if (localData != null) {
             Result.Success(mapper.localToDomain(localData))
         } else {

@@ -1,16 +1,16 @@
 package com.exxuslee.domain.utils
 
-sealed class Result2 {
+sealed class Result2<out R> {
 
     abstract fun<T> handle(handleResult: HandleResult<T>)
 
-    class Success<T>(private val value: T) : Result2() {
+    class Success<out T>(private val value: T) : Result2<T>() {
         override fun <T> handle(handleResult: HandleResult<T>) {
-            handleResult.handleSuccess(value)
+            handleResult.handleSuccess(value as T)
         }
     }
 
-    class Error(private val message: String) : Result2() {
+    class Error(private val message: String) : Result2<Nothing>() {
         override fun <T> handle(handleResult: HandleResult<T>) {
             handleResult.handleError(message)
         }

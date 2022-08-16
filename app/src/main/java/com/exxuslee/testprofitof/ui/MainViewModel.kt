@@ -42,10 +42,10 @@ class MainViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
                     _dataFetchState.postValue(false)
                 }
 
-                override fun handleSuccess(data: Any?) {
+                override fun handleSuccess(data: IntArray) {
                     _isLoading.postValue(false)
                     _dataFetchState.postValue(true)
-                    _ids.postValue(data as IntArray)
+                    _ids.postValue(data)
                 }
 
             }

@@ -6,12 +6,12 @@ import com.exxuslee.domain.utils.Result
 import com.exxuslee.domain.utils.Result2
 
 interface GetIDUseCase {
-    suspend fun listIDs(): Result2
+    suspend fun listIDs(): Result2<IntArray>
     suspend fun getID(xxx: Int): Result<ID>
 
     class Base(private val repository: IDRepository) : GetIDUseCase {
 
-        override suspend fun listIDs(): Result2 =
+        override suspend fun listIDs(): Result2<IntArray> =
             repository.listIDs()
 
         override suspend fun getID(xxx: Int): Result<ID> =
