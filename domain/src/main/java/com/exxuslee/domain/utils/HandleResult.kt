@@ -1,6 +1,6 @@
 package com.exxuslee.domain.utils
 
-interface HandleResult {
-    fun handleSuccess (data: IntArray)
+interface HandleResult<T> {
+    fun handleSuccess (data: Any?)
     fun handleError (message: String)
 }

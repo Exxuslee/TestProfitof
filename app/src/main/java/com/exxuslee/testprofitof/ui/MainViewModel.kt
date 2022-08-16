@@ -36,17 +36,18 @@ class MainViewModel(private val getIDUseCase: GetIDUseCase.Base) : ViewModel() {
     fun remoteList() {
         _isLoading.postValue(true)
         viewModelScope.launch {
-            val handleResult = object : HandleResult {
-                override fun handleSuccess(data: IntArray) {
-                    _isLoading.postValue(false)
-                    _dataFetchState.postValue(true)
-                    _ids.postValue(data)
-                }
-
+            val handleResult = object : HandleResult<IntArray> {
                 override fun handleError(message: String) {
                     _isLoading.postValue(false)
                     _dataFetchState.postValue(false)
                 }
+
+                override fun handleSuccess(data: Any?) {
+                    _isLoading.postValue(false)
+                    _dataFetchState.postValue(true)
+                    _ids.postValue(data as IntArray)
+                }
+
             }
             withContext(Dispatchers.IO) {
                 getIDUseCase.listIDs().handle(handleResult)
