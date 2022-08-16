@@ -4,9 +4,9 @@ sealed class Result2 {
 
     abstract fun<T> handle(handleResult: HandleResult<T>)
 
-    class Success<T>(private val value: T) : Result2() {
+    class Success<out T>(private val value: T) : Result2() {
         override fun <T> handle(handleResult: HandleResult<T>) {
-            handleResult.handleSuccess(value)
+            handleResult.handleSuccess(value as T)
         }
     }
 
